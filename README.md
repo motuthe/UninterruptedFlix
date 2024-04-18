@@ -1,30 +1,28 @@
-# React + TypeScript + Vite
+![UninterruptedFlix Logo](./public/assets/images/logo.png)
+## Description
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+UninterruptedFlix is a Chrome extension that enhances your Netflix viewing experience. It automatically clicks the 'Skip Intro' button on Netflix videos as soon as it appears, providing an uninterrupted viewing experience.
 
-Currently, two official plugins are available:
+## Installation
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+1. Download or clone this repository to your local machine.
+2. Open the Chrome browser and navigate to `chrome://extensions`.
+3. Enable Developer mode by ticking the checkbox in the upper-right corner.
+4. Click on the "Load unpacked" button.
+5. Navigate to the directory where you saved this repository and click "OK".
 
-## Expanding the ESLint configuration
+## Usage
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+Once installed, the extension will automatically skip intros in Netflix shows. You can enable or disable this feature by clicking on the extension icon in the Chrome toolbar.
 
-- Configure the top-level `parserOptions` property like this:
+## For Developers
 
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
-```
+This project is built with JavaScript. The main logic is in the `js/content.js` file. This script uses a MutationObserver to detect when the 'Skip Intro' button appears on the page and clicks it.
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+The extension's settings and metadata are defined in the `manifest.json` file. This includes the permissions the extension needs, the scripts it runs, and the icons it uses.
+
+Feel free to contribute to this project by submitting pull requests.
+
+## License
+
+This project is licensed under the MIT License.# UninterruptedFlix
