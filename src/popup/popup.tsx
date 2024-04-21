@@ -1,12 +1,8 @@
 import React, { useEffect } from 'react';
-import logo from '../images/logo.png'
-import skip from '../images/skip-intro.png'
-import '../scss/popup.scss'
-
-interface PopupInterface {
-  setCheckboxState: (checkbox: HTMLInputElement | null) => void;
-  handleCheckboxChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
-}
+import logo from '../images/logo.png';
+import skip from '../images/skip-intro.png';
+import '../scss/popup.scss';
+import { PopupInterface } from './types';
 
 const popup: PopupInterface = {
   setCheckboxState: (checkbox: HTMLInputElement | null) => {
@@ -39,12 +35,12 @@ function Popup() {
       <img src={logo} className="logo" alt="UninterruptedFlix Logo" />
       <form>
         <label>
-          <img src={skip} className="skip-intro-logo" alt="Skip Intro Logo"/>
-          <input type="checkbox" id="toggleSwitch" onChange={popup.handleCheckboxChange}/>
+          <img src={skip} className="skip-intro-logo" alt="Skip Intro Logo" />
+          <input type="checkbox" id="toggleSwitch" onChange={popup.handleCheckboxChange} />
         </label>
       </form>
     </>
-  )
+  );
 }
 
-export default Popup
+export default Popup;

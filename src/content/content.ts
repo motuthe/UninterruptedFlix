@@ -1,14 +1,11 @@
-type MutationType = MutationRecord | null;
-
-interface ContentInterface {
-  clickSkipButton: (mutation: MutationType) => void;
-  observeDOM: () => void;
-}
+import { ContentInterface, MutationType } from './types';
 
 const content: ContentInterface = {
   clickSkipButton: (mutation: MutationType) => {
     if (mutation && mutation.addedNodes && mutation.addedNodes.length) {
-      const skipButton = document.querySelector('div.watch-video--skip-content > button') as HTMLButtonElement | null;
+      const skipButton = document.querySelector(
+        'div.watch-video--skip-content > button',
+      ) as HTMLButtonElement | null;
       if (skipButton) {
         skipButton.click();
       }
@@ -23,8 +20,8 @@ const content: ContentInterface = {
       });
     });
     observer.observe(document, { childList: true, subtree: true });
-  }
-}
+  },
+};
 
 content.observeDOM();
 
