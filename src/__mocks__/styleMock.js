@@ -1,0 +1,1 @@
+module.exports = ''; // This is a placeholder for the styleMock.js file
