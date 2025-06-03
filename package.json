@@ -6,9 +6,13 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
-    "sass": "sass ./src/scss/popup.scss ./public/css/popup.css",
+    "sass": "sass src/assets/scss/popup.scss ./public/css/popup.css",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
-    "preview": "vite preview"
+    "lint:fix": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0 --fix",
+    "format": "prettier --write .",
+    "preview": "vite preview",
+    "test": "jest",
+    "test:coverlage": "jest --coverage --watchAll=false"
   },
   "dependencies": {
     "@typescript-eslint/parser": "^7.7.0",
@@ -17,7 +21,7 @@
     "react-dom": "^18.2.0"
   },
   "devDependencies": {
-    "@crxjs/vite-plugin": "^2.0.0-beta.23",
+    "@crxjs/vite-plugin": "^2.0.0-beta.26",
     "@eslint/eslintrc": "^3.0.2",
     "@eslint/js": "^9.1.1",
     "@testing-library/jest-dom": "^6.4.2",

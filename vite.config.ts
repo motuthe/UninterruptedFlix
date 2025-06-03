@@ -1,8 +1,8 @@
-import { defineConfig } from 'vite'
-import { resolve } from 'node:path'
-import { crx } from '@crxjs/vite-plugin'
-import react from '@vitejs/plugin-react-swc'
-import manifest from "./src/manifest"
+import { defineConfig } from 'vite';
+import { resolve } from 'node:path';
+import { crx } from '@crxjs/vite-plugin';
+import react from '@vitejs/plugin-react-swc';
+import manifest from './src/manifest';
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -15,7 +15,7 @@ export default defineConfig({
       input: {
         popup: resolve(__dirname, 'src/popup/popup.html'),
         content: resolve(__dirname, 'src/content/content.ts'),
-        popup_css: resolve(__dirname, 'src/scss/popup.scss'),
+        popup_css: resolve(__dirname, 'src/assets/scss/popup.scss'),
       },
       output: {
         entryFileNames: `assets/js/[name].js`,
@@ -31,9 +31,9 @@ export default defineConfig({
             return 'assets/[name].[ext]';
           }
           return 'assets/[name].[ext]';
-        }
+        },
       },
     },
   },
   plugins: [react(), crx({ manifest })],
-})
+});

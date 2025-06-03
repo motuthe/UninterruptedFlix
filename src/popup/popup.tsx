@@ -1,42 +1,38 @@
-import React, { useEffect } from 'react';
-import logo from '../images/logo.png';
-import skip from '../images/skip-intro.png';
-import '../scss/popup.scss';
-import { PopupInterface } from './types';
-
-const popup: PopupInterface = {
-  setCheckboxState: (checkbox: HTMLInputElement | null) => {
-    chrome.storage.sync.get('skipIntro', (data: { skipIntro?: boolean }) => {
-      if (chrome.runtime.lastError) {
-        console.error(chrome.runtime.lastError);
-        return;
-      }
-      if (checkbox) {
-        checkbox.checked = data.skipIntro ?? false;
-      }
-    });
-  },
-  handleCheckboxChange: (event: React.ChangeEvent<HTMLInputElement>) => {
-    const target = event.target;
-    chrome.storage.sync.set({ skipIntro: target.checked });
-  },
-};
+import logo from '../assets/images/logo.png';
+import skip from '../assets/images/skip-intro.png';
+import episode from '../assets/images/next-episode.png';
+import '../assets/scss/popup.scss';
+import useCheckboxState from './useCheckboxState.ts';
 
 function Popup() {
-  useEffect(() => {
-    const checkbox = document.getElementById('toggleSwitch') as HTMLInputElement | null;
-    if (checkbox) {
-      popup.setCheckboxState(checkbox);
-    }
-  }, []);
+  const skipIntro = useCheckboxState('skipIntro');
+  const nextEpisode = useCheckboxState('nextEpisode');
 
   return (
     <>
-      <img src={logo} className="logo" alt="UninterruptedFlix Logo" />
+      <div className="logo">
+        <img src={logo} alt="UninterruptedFlix Logo" />
+      </div>
       <form>
         <label>
           <img src={skip} className="skip-intro-logo" alt="Skip Intro Logo" />
-          <input type="checkbox" id="toggleSwitch" onChange={popup.handleCheckboxChange} />
+          <input
+            type="checkbox"
+            id="skipIntro"
+            checked={skipIntro.isChecked}
+            onChange={skipIntro.handleCheckboxChange}
+          />
+        </label>
+      </form>
+      <form>
+        <label>
+          <img src={episode} className="next-episode-logo" alt="Next Episode Logo" />
+          <input
+            type="checkbox"
+            id="nextEpisode"
+            checked={nextEpisode.isChecked}
+            onChange={nextEpisode.handleCheckboxChange}
+          />
         </label>
       </form>
     </>
