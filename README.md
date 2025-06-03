@@ -1,4 +1,4 @@
-![UninterruptedFlix Logo](./public/assets/images/logo.png)
+![UninterruptedFlix Logo](./src/assets/images/logo.png)
 ## Description
 
 UninterruptedFlix is a Chrome extension that enhances your Netflix viewing experience. It automatically clicks the 'Skip Intro' button on Netflix videos as soon as it appears, providing an uninterrupted viewing experience.
