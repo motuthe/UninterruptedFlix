@@ -22,7 +22,7 @@ export default defineConfig({
         // chunkFileNames: `assets/js/[name].js`,
         assetFileNames: (assetInfo) => {
           if (assetInfo.name) {
-            if (/\.( gif|jpeg|jpg|png|svg|webp| )$/.test(assetInfo.name)) {
+            if (/\.(gif|jpe?g|png|svg|webp)$/.test(assetInfo.name)) {
               return 'assets/images/[name].[ext]';
             }
             if (/\.css$/.test(assetInfo.name)) {
