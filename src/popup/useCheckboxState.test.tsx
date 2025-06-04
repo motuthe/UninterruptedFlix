@@ -35,4 +35,28 @@ describe('useCheckboxState', () => {
     expect(setMock).toHaveBeenCalledWith({ skipIntro: true });
     expect(result.current.isChecked).toBe(true);
   });
+
+  it('logs an error when chrome runtime reports one', () => {
+    const error = new Error('fail');
+    getMock.mockImplementation((_key: string, cb: (data: any) => void) => {
+      (global as any).chrome.runtime.lastError = error;
+      cb({});
+    });
+    const errorSpy = jest.spyOn(console, 'error').mockImplementation(() => {});
+
+    const { result } = renderHook(() => useCheckboxState('skipIntro'));
+
+    expect(result.current.isChecked).toBe(false);
+    expect(errorSpy).toHaveBeenCalledWith(error);
+
+    errorSpy.mockRestore();
+  });
+
+  it('defaults to false when storage has no value', () => {
+    getMock.mockImplementation((_key: string, cb: (data: any) => void) => cb({}));
+
+    const { result } = renderHook(() => useCheckboxState('skipIntro'));
+
+    expect(result.current.isChecked).toBe(false);
+  });
 });
