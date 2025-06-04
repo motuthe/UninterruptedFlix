@@ -1,4 +1,5 @@
 import { renderHook, act } from '@testing-library/react';
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import useCheckboxState from './useCheckboxState';
 
 describe('useCheckboxState', () => {

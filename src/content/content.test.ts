@@ -1,4 +1,5 @@
 import { jest } from '@jest/globals';
+/* eslint-disable @typescript-eslint/no-explicit-any, @typescript-eslint/no-var-requires, @typescript-eslint/ban-types, @typescript-eslint/no-this-alias */
 
 const createMutation = () => {
   const container = document.createElement('div');
