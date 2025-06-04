@@ -1,0 +1,113 @@
+import { jest } from '@jest/globals';
+
+const createMutation = () => {
+  const container = document.createElement('div');
+  const child = document.createElement('div');
+  container.appendChild(child);
+  return { addedNodes: container.childNodes } as unknown as MutationRecord;
+};
+
+describe('content module', () => {
+  let originalMutationObserver: typeof MutationObserver | undefined;
+
+  beforeEach(() => {
+    jest.resetModules();
+    (global as any).chrome = { storage: { sync: { get: jest.fn() } } };
+    (global as any).window ||= {};
+    (global as any).window.chrome = (global as any).chrome;
+    originalMutationObserver = global.MutationObserver;
+    global.MutationObserver = class {
+      observe() {}
+      disconnect() {}
+      constructor() {}
+    } as any;
+  });
+
+  afterEach(() => {
+    jest.clearAllMocks();
+    delete (global as any).chrome;
+    if ((global as any).window) {
+      delete (global as any).window.chrome;
+    }
+    global.MutationObserver = originalMutationObserver as any;
+    document.body.innerHTML = '';
+  });
+
+  test('clickSkipButton clicks the skip intro button if present', async () => {
+    let content: any;
+    jest.isolateModules(() => {
+      content = require('./content').default;
+    });
+
+    const button = document.createElement('button');
+    button.textContent = 'イントロをスキップ';
+    const clickMock = jest.fn();
+    button.addEventListener('click', clickMock);
+    document.body.appendChild(button);
+
+    const mutation = createMutation();
+    content.clickSkipButton(mutation);
+
+    expect(clickMock).toHaveBeenCalled();
+  });
+
+  test('clickNextEpisodeButton clicks the next episode button if present', async () => {
+    let content: any;
+    jest.isolateModules(() => {
+      content = require('./content').default;
+    });
+
+    const button = document.createElement('button');
+    button.textContent = '次のエピソード';
+    const clickMock = jest.fn();
+    button.addEventListener('click', clickMock);
+    document.body.appendChild(button);
+
+    const mutation = createMutation();
+    content.clickNextEpisodeButton(mutation);
+
+    expect(clickMock).toHaveBeenCalled();
+  });
+
+  test('observeDOM sets up observer and triggers click functions', () => {
+    const getMock = jest.fn((_keys: string[], cb: Function) => {
+      cb({ skipIntro: true, nextEpisode: true });
+    });
+    (global as any).chrome.storage.sync.get = getMock;
+
+    let callback!: MutationCallback;
+    let observerInstance: any;
+    class MockObserver {
+      observe = jest.fn();
+      disconnect = jest.fn();
+      constructor(cb: MutationCallback) {
+        callback = cb;
+        observerInstance = this;
+      }
+    }
+    global.MutationObserver = MockObserver as any;
+
+    let content: any;
+    jest.isolateModules(() => {
+      content = require('./content').default;
+    });
+
+    jest.spyOn(content, 'clickSkipButton');
+    jest.spyOn(content, 'clickNextEpisodeButton');
+
+    expect(observerInstance.observe).toHaveBeenCalledWith(document, {
+      childList: true,
+      subtree: true,
+    });
+
+    const mutation = createMutation();
+    callback([mutation], observerInstance as unknown as MutationObserver);
+
+    expect(getMock).toHaveBeenCalledWith(
+      ['skipIntro', 'nextEpisode'],
+      expect.any(Function),
+    );
+    expect(content.clickSkipButton).toHaveBeenCalledWith(mutation, 0, [mutation]);
+    expect(content.clickNextEpisodeButton).toHaveBeenCalledWith(mutation, 0, [mutation]);
+  });
+});
