@@ -8,9 +8,7 @@ import typeScriptESLintParser from '@typescript-eslint/parser';
 import pluginPrettier from 'eslint-plugin-prettier';
 
 // mimic CommonJS variables -- not needed if using CommonJS
-// eslint-disable-next-line @typescript-eslint/naming-convention
 const __filename = fileURLToPath(import.meta.url);
-// eslint-disable-next-line @typescript-eslint/naming-convention
 const __dirname = path.dirname(__filename);
 const compat = new FlatCompat({
   baseDirectory: __dirname,
@@ -37,7 +35,7 @@ export default [
   ...compat.extends(
     'eslint:recommended',
     'plugin:@typescript-eslint/recommended',
-    "plugin:prettier/recommended",
+    'plugin:prettier/recommended',
     'plugin:react/recommended',
     'plugin:react-hooks/recommended',
     'prettier',
