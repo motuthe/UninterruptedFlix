@@ -12,7 +12,7 @@
     "format": "prettier --write .",
     "preview": "vite preview",
     "test": "jest",
-    "test:coverlage": "jest --coverage --watchAll=false"
+    "test:coverage": "jest --coverage --watchAll=false"
   },
   "dependencies": {
     "@typescript-eslint/parser": "^7.7.0",
