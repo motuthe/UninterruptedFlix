@@ -17,7 +17,7 @@ Once installed, the extension will automatically skip intros in Netflix shows. Y
 
 ## For Developers
 
-This project is built with JavaScript. The main logic is in the `js/content.js` file. This script uses a MutationObserver to detect when the 'Skip Intro' button appears on the page and clicks it.
+This project is built with TypeScript. The main logic is in the `src/content/content.ts` file. This script uses a MutationObserver to detect when the 'Skip Intro' button appears on the page and clicks it.
 
 The extension's settings and metadata are defined in the `manifest.json` file. This includes the permissions the extension needs, the scripts it runs, and the icons it uses.
 
@@ -25,4 +25,4 @@ Feel free to contribute to this project by submitting pull requests.
 
 ## License
 
-This project is licensed under the MIT License.# UninterruptedFlix
+This project is licensed under the MIT License.
