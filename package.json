@@ -15,12 +15,12 @@
     "test:coverage": "jest --coverage --watchAll=false"
   },
   "dependencies": {
-    "@typescript-eslint/parser": "^7.7.0",
-    "eslint-plugin-jest": "^28.2.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
   },
   "devDependencies": {
+    "@typescript-eslint/parser": "^7.7.0",
+    "eslint-plugin-jest": "^28.2.0",
     "@crxjs/vite-plugin": "^2.0.0-beta.26",
     "@eslint/eslintrc": "^3.0.2",
     "@eslint/js": "^9.1.1",
