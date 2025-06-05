@@ -28,40 +28,31 @@ const getLangCode = (): LangCode => {
 const getLabels = () => LANGUAGE_LABELS[getLangCode()];
 
 const buildXPath = (label: string) => `//button[contains(.,'${label}')]`;
+
+const queryButton = (label: string): HTMLButtonElement | null => {
+  const result = document.evaluate(
+    buildXPath(label),
+    document,
+    null,
+    XPathResult.FIRST_ORDERED_NODE_TYPE,
+    null,
+  );
+  return result.singleNodeValue as HTMLButtonElement | null;
+};
+
+const clickButton = (label: string) => {
+  const btn = queryButton(label);
+  btn?.click();
+};
+
 const content: ContentInterface = {
   clickSkipButton: (mutation: MutationType) => {
-    if (mutation && mutation.addedNodes && mutation.addedNodes.length) {
-      const result = document.evaluate(
-        buildXPath(getLabels().skipIntro),
-        document,
-        null,
-        XPathResult.FIRST_ORDERED_NODE_TYPE,
-        null,
-      );
-      if (result) {
-        const skipButton = result.singleNodeValue as HTMLButtonElement | null;
-        if (skipButton) {
-          skipButton.click();
-        }
-      }
-    }
+    if (!mutation?.addedNodes.length) return;
+    clickButton(getLabels().skipIntro);
   },
   clickNextEpisodeButton: (mutation: MutationType) => {
-    if (mutation && mutation.addedNodes && mutation.addedNodes.length) {
-      const result = document.evaluate(
-        buildXPath(getLabels().nextEpisode),
-        document,
-        null,
-        XPathResult.FIRST_ORDERED_NODE_TYPE,
-        null,
-      );
-      if (result) {
-        const nextButton = result.singleNodeValue as HTMLButtonElement | null;
-        if (nextButton) {
-          nextButton.click();
-        }
-      }
-    }
+    if (!mutation?.addedNodes.length) return;
+    clickButton(getLabels().nextEpisode);
   },
   observeDOM: () => {
     const observer = new MutationObserver((mutations: MutationRecord[]) => {
