@@ -16,6 +16,18 @@ UninterruptedFlix is a Chrome extension that enhances your Netflix viewing exper
 
 Run `npm run build` whenever you make changes to regenerate the extension in the `dist` folder.
 
+## Loading the `dist` Directory in Chrome
+
+The repository already includes a `dist` directory with the compiled extension,
+so you can load it directly without running the build step:
+
+1. Open Chrome and navigate to `chrome://extensions`.
+2. Enable **Developer mode** using the toggle in the top-right corner.
+3. Click **Load unpacked** and select the `dist` directory.
+
+Run `npm run build` only if you modify the source code and need to regenerate
+the files inside `dist`.
+
 ## Usage
 
 Once installed, the extension will automatically skip intros and jump to the next episode when possible. You can enable or disable these features by clicking on the extension icon in the Chrome toolbar.
