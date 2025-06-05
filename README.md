@@ -2,7 +2,7 @@
 
 ## Description
 
-UninterruptedFlix is a Chrome extension that enhances your Netflix viewing experience. It automatically clicks the 'Skip Intro' and 'Next Episode' buttons on Netflix videos as soon as they appear, providing an uninterrupted viewing experience.
+UninterruptedFlix is a Chrome extension that enhances your Netflix viewing experience. It automatically clicks the 'Skip Intro' and 'Next Episode' buttons on Netflix videos as soon as they appear, providing an uninterrupted viewing experience. The extension recognises these buttons in multiple languages by inspecting the page's `lang` attribute, so it works across different locales.
 
 ## Installation
 
@@ -27,6 +27,10 @@ This project is built with TypeScript. The main logic is in the `src/content/con
 The extension's settings and metadata are defined in the `manifest.json` file. This includes the permissions the extension needs, the scripts it runs, and the icons it uses.
 
 Feel free to contribute to this project by submitting pull requests. Before opening one, run `npm run lint` and `npm test` to ensure code quality.
+
+## Testing
+
+The project includes unit tests powered by Jest and React Testing Library. Run `npm test` to execute all tests. Linting rules are enforced with ESLint, which you can run using `npm run lint`.
 
 ## License
 
