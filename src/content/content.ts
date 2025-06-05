@@ -17,6 +17,8 @@ const clickButton = (label: string) => {
   btn?.click();
 };
 
+const buildXPath = (label: string) => `//button[contains(.,'${label}')]`;
+
 const content: ContentInterface = {
   clickSkipButton: (mutation: MutationType) => {
     if (!mutation?.addedNodes.length) return;
