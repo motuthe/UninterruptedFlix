@@ -113,4 +113,63 @@ describe('content module', () => {
     expect(content.clickSkipButton).toHaveBeenCalledWith(mutation, 0, [mutation]);
     expect(content.clickNextEpisodeButton).toHaveBeenCalledWith(mutation, 0, [mutation]);
   });
+
+  test('functions handle missing mutation or buttons gracefully', () => {
+    let content: any;
+    jest.isolateModules(() => {
+      content = require('./content').default;
+    });
+
+    const evaluateSpy = jest.spyOn(document, 'evaluate').mockReturnValue({ singleNodeValue: null } as any);
+
+    expect(() => content.clickSkipButton(null)).not.toThrow();
+    expect(() => content.clickNextEpisodeButton({ addedNodes: [] } as any)).not.toThrow();
+
+    const mutation = createMutation();
+    content.clickSkipButton(mutation);
+    content.clickNextEpisodeButton(mutation);
+
+    expect(evaluateSpy).toHaveBeenCalled();
+    evaluateSpy.mockRestore();
+  });
+
+  test('falls back to English labels when lang is unknown', () => {
+    document.documentElement.setAttribute('lang', 'zz');
+
+    let content: any;
+    jest.isolateModules(() => {
+      content = require('./content').default;
+    });
+
+    const button = document.createElement('button');
+    button.textContent = 'Skip Intro';
+    const clickMock = jest.fn();
+    button.addEventListener('click', clickMock);
+    document.body.appendChild(button);
+
+    const mutation = createMutation();
+    content.clickSkipButton(mutation);
+
+    expect(clickMock).toHaveBeenCalled();
+  });
+
+  test('defaults to English when no lang attribute present', () => {
+    document.documentElement.removeAttribute('lang');
+
+    let content: any;
+    jest.isolateModules(() => {
+      content = require('./content').default;
+    });
+
+    const button = document.createElement('button');
+    button.textContent = 'Skip Intro';
+    const clickMock = jest.fn();
+    button.addEventListener('click', clickMock);
+    document.body.appendChild(button);
+
+    const mutation = createMutation();
+    content.clickSkipButton(mutation);
+
+    expect(clickMock).toHaveBeenCalled();
+  });
 });
