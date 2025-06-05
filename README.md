@@ -2,7 +2,7 @@
 
 ## Description
 
-UninterruptedFlix is a Chrome extension that enhances your Netflix viewing experience. It automatically clicks the 'Skip Intro' and 'Next Episode' buttons on Netflix videos as soon as they appear, providing an uninterrupted viewing experience. The extension detects your Netflix language setting and uses the correct label for that language – English, Japanese, Spanish, French, German, Italian, Portuguese, Russian, Chinese, Korean, or Arabic – so it works seamlessly no matter which language you use.
+UninterruptedFlix is a Chrome extension that enhances your Netflix viewing experience. It automatically clicks the 'Skip Intro' and 'Next Episode' buttons on Netflix videos as soon as they appear, providing an uninterrupted viewing experience.
 
 ## Installation
 
