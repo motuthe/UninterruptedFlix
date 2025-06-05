@@ -1,4 +1,5 @@
 import { jest } from '@jest/globals';
+import { LANGUAGE_LABELS } from './language';
 /* eslint-disable @typescript-eslint/no-explicit-any, @typescript-eslint/no-var-requires, @typescript-eslint/ban-types, @typescript-eslint/no-this-alias */
 
 const createMutation = () => {
@@ -34,41 +35,51 @@ describe('content module', () => {
     document.body.innerHTML = '';
   });
 
-  test('clickSkipButton clicks the skip intro button if present', async () => {
-    let content: any;
-    jest.isolateModules(() => {
-      content = require('./content').default;
-    });
+  test.each(Object.entries(LANGUAGE_LABELS))(
+    'clickSkipButton clicks the skip intro button if present (%s)',
+    (lang, labels) => {
+      document.documentElement.lang = lang;
 
-    const button = document.createElement('button');
-    button.textContent = 'イントロをスキップ';
-    const clickMock = jest.fn();
-    button.addEventListener('click', clickMock);
-    document.body.appendChild(button);
+      let content: any;
+      jest.isolateModules(() => {
+        content = require('./content').default;
+      });
 
-    const mutation = createMutation();
-    content.clickSkipButton(mutation);
+      const button = document.createElement('button');
+      button.textContent = (labels as any).skipIntro;
+      const clickMock = jest.fn();
+      button.addEventListener('click', clickMock);
+      document.body.appendChild(button);
 
-    expect(clickMock).toHaveBeenCalled();
-  });
+      const mutation = createMutation();
+      content.clickSkipButton(mutation);
 
-  test('clickNextEpisodeButton clicks the next episode button if present', async () => {
-    let content: any;
-    jest.isolateModules(() => {
-      content = require('./content').default;
-    });
+      expect(clickMock).toHaveBeenCalled();
+    },
+  );
 
-    const button = document.createElement('button');
-    button.textContent = '次のエピソード';
-    const clickMock = jest.fn();
-    button.addEventListener('click', clickMock);
-    document.body.appendChild(button);
+  test.each(Object.entries(LANGUAGE_LABELS))(
+    'clickNextEpisodeButton clicks the next episode button if present (%s)',
+    (lang, labels) => {
+      document.documentElement.lang = lang;
 
-    const mutation = createMutation();
-    content.clickNextEpisodeButton(mutation);
+      let content: any;
+      jest.isolateModules(() => {
+        content = require('./content').default;
+      });
 
-    expect(clickMock).toHaveBeenCalled();
-  });
+      const button = document.createElement('button');
+      button.textContent = (labels as any).nextEpisode;
+      const clickMock = jest.fn();
+      button.addEventListener('click', clickMock);
+      document.body.appendChild(button);
+
+      const mutation = createMutation();
+      content.clickNextEpisodeButton(mutation);
+
+      expect(clickMock).toHaveBeenCalled();
+    },
+  );
 
   test('observeDOM sets up observer and triggers click functions', () => {
     const getMock = jest.fn((_keys: string[], cb: Function) => {

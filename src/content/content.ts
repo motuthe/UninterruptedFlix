@@ -1,4 +1,7 @@
 import { ContentInterface, MutationType } from '../types/all.ts';
+import { getLabels } from './language.ts';
+
+const buildXPath = (label: string) => `//button[contains(., ${JSON.stringify(label)})]`;
 
 const clickButtonByXPath = (xpath: string, mutation: MutationType) => {
   if (!mutation?.addedNodes?.length) {
@@ -18,10 +21,12 @@ const clickButtonByXPath = (xpath: string, mutation: MutationType) => {
 
 const content: ContentInterface = {
   clickSkipButton: (mutation: MutationType) => {
-    clickButtonByXPath("//button[contains(.,'イントロをスキップ')]", mutation);
+    const { skipIntro } = getLabels();
+    clickButtonByXPath(buildXPath(skipIntro), mutation);
   },
   clickNextEpisodeButton: (mutation: MutationType) => {
-    clickButtonByXPath("//button[contains(.,'次のエピソード')]", mutation);
+    const { nextEpisode } = getLabels();
+    clickButtonByXPath(buildXPath(nextEpisode), mutation);
   },
   observeDOM: () => {
     const observer = new MutationObserver((mutations: MutationRecord[]) => {
