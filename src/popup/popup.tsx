@@ -4,10 +4,14 @@ import episode from '../assets/images/next-episode.png';
 import '../assets/scss/popup.scss';
 import useCheckboxState from './useCheckboxState.ts';
 
+// Popup component displayed when the extension icon is clicked.
+
 function Popup() {
+  // Each checkbox uses the custom hook to persist its state.
   const skipIntro = useCheckboxState('skipIntro');
   const nextEpisode = useCheckboxState('nextEpisode');
 
+  // Render logo and two checkboxes controlling the extension's behaviour.
   return (
     <>
       <div className="logo">
