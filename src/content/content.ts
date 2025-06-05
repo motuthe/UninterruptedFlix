@@ -1,39 +1,27 @@
 import { ContentInterface, MutationType } from '../types/all.ts';
 
+const clickButtonByXPath = (xpath: string, mutation: MutationType) => {
+  if (!mutation?.addedNodes?.length) {
+    return;
+  }
+
+  const result = document.evaluate(
+    xpath,
+    document,
+    null,
+    XPathResult.FIRST_ORDERED_NODE_TYPE,
+    null,
+  );
+  const button = result.singleNodeValue as HTMLButtonElement | null;
+  button?.click();
+};
+
 const content: ContentInterface = {
   clickSkipButton: (mutation: MutationType) => {
-    if (mutation && mutation.addedNodes && mutation.addedNodes.length) {
-      const result = document.evaluate(
-        "//button[contains(.,'イントロをスキップ')]",
-        document,
-        null,
-        XPathResult.FIRST_ORDERED_NODE_TYPE,
-        null,
-      );
-      if (result) {
-        const skipButton = result.singleNodeValue as HTMLButtonElement | null;
-        if (skipButton) {
-          skipButton.click();
-        }
-      }
-    }
+    clickButtonByXPath("//button[contains(.,'イントロをスキップ')]", mutation);
   },
   clickNextEpisodeButton: (mutation: MutationType) => {
-    if (mutation && mutation.addedNodes && mutation.addedNodes.length) {
-      const result = document.evaluate(
-        "//button[contains(.,'次のエピソード')]",
-        document,
-        null,
-        XPathResult.FIRST_ORDERED_NODE_TYPE,
-        null,
-      );
-      if (result) {
-        const nextButton = result.singleNodeValue as HTMLButtonElement | null;
-        if (nextButton) {
-          nextButton.click();
-        }
-      }
-    }
+    clickButtonByXPath("//button[contains(.,'次のエピソード')]", mutation);
   },
   observeDOM: () => {
     const observer = new MutationObserver((mutations: MutationRecord[]) => {
