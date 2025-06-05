@@ -1,0 +1,39 @@
+{
+  "manifest_version": 3,
+  "name": "UninterruptedFlix",
+  "version": "1.0.2",
+  "description": "This extension automatically clicks the 'Skip Intro' & 'Next Episode' button on Netflix videos as soon as it appears, providing an uninterrupted viewing experience.",
+  "permissions": [
+    "activeTab",
+    "storage"
+  ],
+  "content_scripts": [
+    {
+      "js": [
+        "assets/content.ts-loader.js"
+      ],
+      "matches": [
+        "*://*.netflix.com/*"
+      ]
+    }
+  ],
+  "action": {
+    "default_popup": "popup/popup.html"
+  },
+  "icons": {
+    "16": "assets/images/n16.png",
+    "48": "assets/images/n48.png",
+    "128": "assets/images/n128.png"
+  },
+  "web_accessible_resources": [
+    {
+      "matches": [
+        "*://*.netflix.com/*"
+      ],
+      "resources": [
+        "assets/js/content.js"
+      ],
+      "use_dynamic_url": false
+    }
+  ]
+}

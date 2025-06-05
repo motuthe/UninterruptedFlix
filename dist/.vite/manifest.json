@@ -1,0 +1,49 @@
+{
+  "../../../../../@crx/manifest": {
+    "file": "assets/crx-manifest.js-BgvQM2QC.js",
+    "name": "crx-manifest.js",
+    "src": "../../../../../@crx/manifest",
+    "isEntry": true
+  },
+  "_content.ts-loader.js": {
+    "file": "assets/content.ts-loader.js",
+    "src": "_content.ts-loader.js"
+  },
+  "assets/images/logo.png": {
+    "file": "assets/images/logo.png",
+    "src": "assets/images/logo.png"
+  },
+  "assets/images/next-episode.png": {
+    "file": "assets/images/next-episode.png",
+    "src": "assets/images/next-episode.png"
+  },
+  "assets/images/skip-intro.png": {
+    "file": "assets/images/skip-intro.png",
+    "src": "assets/images/skip-intro.png"
+  },
+  "assets/scss/popup.scss": {
+    "file": "assets/css/popup_css.css",
+    "src": "assets/scss/popup.scss",
+    "isEntry": true
+  },
+  "content/content.ts": {
+    "file": "assets/js/content.js",
+    "name": "content",
+    "src": "content/content.ts",
+    "isEntry": true
+  },
+  "popup/popup.html": {
+    "file": "assets/js/popup.js",
+    "name": "popup",
+    "src": "popup/popup.html",
+    "isEntry": true,
+    "css": [
+      "assets/css/popup_css.css"
+    ],
+    "assets": [
+      "assets/images/logo.png",
+      "assets/images/skip-intro.png",
+      "assets/images/next-episode.png"
+    ]
+  }
+}
