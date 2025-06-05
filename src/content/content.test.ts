@@ -22,7 +22,6 @@ describe('content module', () => {
       disconnect() {}
       constructor() {}
     } as any;
-    document.documentElement.setAttribute('lang', 'ja');
   });
 
   afterEach(() => {
@@ -33,7 +32,6 @@ describe('content module', () => {
     }
     global.MutationObserver = originalMutationObserver as any;
     document.body.innerHTML = '';
-    document.documentElement.removeAttribute('lang');
   });
 
   test('clickSkipButton clicks the skip intro button if present', async () => {
