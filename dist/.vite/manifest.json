@@ -1,6 +1,6 @@
 {
   "../../../../../@crx/manifest": {
-    "file": "assets/crx-manifest.js-BgvQM2QC.js",
+    "file": "assets/crx-manifest.js-Di_Sr91B.js",
     "name": "crx-manifest.js",
     "src": "../../../../../@crx/manifest",
     "isEntry": true
@@ -20,6 +20,10 @@
   "assets/images/skip-intro.png": {
     "file": "assets/images/skip-intro.png",
     "src": "assets/images/skip-intro.png"
+  },
+  "assets/images/skip-recap.png": {
+    "file": "assets/images/skip-recap.png",
+    "src": "assets/images/skip-recap.png"
   },
   "assets/scss/popup.scss": {
     "file": "assets/css/popup_css.css",
@@ -43,7 +47,8 @@
     "assets": [
       "assets/images/logo.png",
       "assets/images/skip-intro.png",
-      "assets/images/next-episode.png"
+      "assets/images/next-episode.png",
+      "assets/images/skip-recap.png"
     ]
   }
 }

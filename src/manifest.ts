@@ -3,9 +3,9 @@ import { defineManifest } from '@crxjs/vite-plugin';
 const manifest = defineManifest(async () => ({
   manifest_version: 3,
   name: 'UninterruptedFlix',
-  version: '1.0.2',
+  version: '1.0.3',
   description:
-    "This extension automatically clicks the 'Skip Intro' & 'Next Episode' button on Netflix videos as soon as it appears, providing an uninterrupted viewing experience.",
+    "This extension automatically clicks the 'Skip Intro', 'Skip Recap' & 'Next Episode' button on Netflix videos as soon as it appears, providing an uninterrupted viewing experience.",
   permissions: ['activeTab', 'storage'],
   content_scripts: [
     {

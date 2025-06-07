@@ -17,6 +17,9 @@ const compat = new FlatCompat({
 
 export default [
   {
+    ignores: ['dist/**/*'],
+  },
+  {
     languageOptions: {
       globals: {
         ...globals.browser,
