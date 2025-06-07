@@ -30,6 +30,8 @@ the files inside `dist`.
 
 ## Usage
 
+![Popup Screenshot](./src/assets/pop-up.png)
+
 Once installed, the extension will automatically skip intros, recaps and jump to the next episode when possible. You can enable or disable these features by clicking on the extension icon in the Chrome toolbar.
 
 ## For Developers
@@ -47,3 +49,4 @@ The project includes unit tests powered by Jest and React Testing Library. Run `
 ## License
 
 This project is licensed under the MIT License.
+
