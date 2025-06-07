@@ -9,7 +9,7 @@ const LANGUAGE_LABELS = {
   ja: {
     skipIntro: 'イントロをスキップ',
     nextEpisode: '次のエピソード',
-    skipRecap: '前回までのあらすじをスキップ',
+    skipRecap: '前﻿回﻿ま﻿で﻿のあ﻿ら﻿す﻿じ﻿をス﻿キ﻿ッ﻿プ',
   },
   es: {
     skipIntro: 'Saltar introducción',

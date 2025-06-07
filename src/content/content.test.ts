@@ -79,7 +79,7 @@ describe('content module', () => {
     });
 
     const button = document.createElement('button');
-    button.textContent = '前回までのあらすじをスキップ';
+    button.textContent = '前﻿回﻿ま﻿で﻿のあ﻿ら﻿す﻿じ﻿をス﻿キ﻿ッ﻿プ';
     const clickMock = jest.fn();
     button.addEventListener('click', clickMock);
     document.body.appendChild(button);
