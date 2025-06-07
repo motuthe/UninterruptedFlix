@@ -72,9 +72,27 @@ describe('content module', () => {
     expect(clickMock).toHaveBeenCalled();
   });
 
+  test('clickSkipRecapButton clicks the skip recap button if present', async () => {
+    let content: any;
+    jest.isolateModules(() => {
+      content = require('./content').default;
+    });
+
+    const button = document.createElement('button');
+    button.textContent = '前回までのあらすじをスキップ';
+    const clickMock = jest.fn();
+    button.addEventListener('click', clickMock);
+    document.body.appendChild(button);
+
+    const mutation = createMutation();
+    content.clickSkipRecapButton(mutation);
+
+    expect(clickMock).toHaveBeenCalled();
+  });
+
   test('observeDOM sets up observer and triggers click functions', () => {
     const getMock = jest.fn((_keys: string[], cb: Function) => {
-      cb({ skipIntro: true, nextEpisode: true });
+      cb({ skipIntro: true, nextEpisode: true, skipRecap: true });
     });
     (global as any).chrome.storage.sync.get = getMock;
 
@@ -97,6 +115,7 @@ describe('content module', () => {
 
     jest.spyOn(content, 'clickSkipButton');
     jest.spyOn(content, 'clickNextEpisodeButton');
+    jest.spyOn(content, 'clickSkipRecapButton');
 
     expect(observerInstance.observe).toHaveBeenCalledWith(document, {
       childList: true,
@@ -107,11 +126,12 @@ describe('content module', () => {
     callback([mutation], observerInstance as unknown as MutationObserver);
 
     expect(getMock).toHaveBeenCalledWith(
-      ['skipIntro', 'nextEpisode'],
+      ['skipIntro', 'nextEpisode', 'skipRecap'],
       expect.any(Function),
     );
     expect(content.clickSkipButton).toHaveBeenCalledWith(mutation, 0, [mutation]);
     expect(content.clickNextEpisodeButton).toHaveBeenCalledWith(mutation, 0, [mutation]);
+    expect(content.clickSkipRecapButton).toHaveBeenCalledWith(mutation, 0, [mutation]);
   });
 
   test('functions handle missing mutation or buttons gracefully', () => {
@@ -120,14 +140,18 @@ describe('content module', () => {
       content = require('./content').default;
     });
 
-    const evaluateSpy = jest.spyOn(document, 'evaluate').mockReturnValue({ singleNodeValue: null } as any);
+    const evaluateSpy = jest
+      .spyOn(document, 'evaluate')
+      .mockReturnValue({ singleNodeValue: null } as any);
 
     expect(() => content.clickSkipButton(null)).not.toThrow();
     expect(() => content.clickNextEpisodeButton({ addedNodes: [] } as any)).not.toThrow();
+    expect(() => content.clickSkipRecapButton({ addedNodes: [] } as any)).not.toThrow();
 
     const mutation = createMutation();
     content.clickSkipButton(mutation);
     content.clickNextEpisodeButton(mutation);
+    content.clickSkipRecapButton(mutation);
 
     expect(evaluateSpy).toHaveBeenCalled();
     evaluateSpy.mockRestore();

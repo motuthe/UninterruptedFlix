@@ -1,6 +1,7 @@
 import logo from '../assets/images/logo.png';
 import skip from '../assets/images/skip-intro.png';
 import episode from '../assets/images/next-episode.png';
+import recap from '../assets/images/skip-recap.png';
 import '../assets/scss/popup.scss';
 import useCheckboxState from './useCheckboxState.ts';
 
@@ -10,6 +11,7 @@ function Popup() {
   // Each checkbox uses the custom hook to persist its state.
   const skipIntro = useCheckboxState('skipIntro');
   const nextEpisode = useCheckboxState('nextEpisode');
+  const skipRecap = useCheckboxState('skipRecap');
 
   // Render logo and two checkboxes controlling the extension's behaviour.
   return (
@@ -25,6 +27,17 @@ function Popup() {
             id="skipIntro"
             checked={skipIntro.isChecked}
             onChange={skipIntro.handleCheckboxChange}
+          />
+        </label>
+      </form>
+      <form>
+        <label>
+          <img src={recap} className="skip-recap-logo" alt="Skip Recap Logo" />
+          <input
+            type="checkbox"
+            id="skipRecap"
+            checked={skipRecap.isChecked}
+            onChange={skipRecap.handleCheckboxChange}
           />
         </label>
       </form>

@@ -5,17 +5,45 @@ import { ContentInterface, MutationType } from '../types/all.ts';
 
 // Mapping of language codes to the button labels shown by Netflix.
 const LANGUAGE_LABELS = {
-  en: { skipIntro: 'Skip Intro', nextEpisode: 'Next Episode' },
-  ja: { skipIntro: 'イントロをスキップ', nextEpisode: '次のエピソード' },
-  es: { skipIntro: 'Saltar introducción', nextEpisode: 'Siguiente episodio' },
-  fr: { skipIntro: "Passer l'intro", nextEpisode: 'Épisode suivant' },
-  de: { skipIntro: 'Intro überspringen', nextEpisode: 'Nächste Folge' },
-  it: { skipIntro: "Salta l'intro", nextEpisode: 'Prossimo episodio' },
-  pt: { skipIntro: 'Pular introdução', nextEpisode: 'Próximo episódio' },
-  ru: { skipIntro: 'Пропустить заставку', nextEpisode: 'Следующая серия' },
-  zh: { skipIntro: '跳过片头', nextEpisode: '下一集' },
-  ko: { skipIntro: '인트로 건너뛰기', nextEpisode: '다음 화' },
-  ar: { skipIntro: 'تخطي المقدمة', nextEpisode: 'الحلقة التالية' },
+  en: { skipIntro: 'Skip Intro', nextEpisode: 'Next Episode', skipRecap: 'Skip Recap' },
+  ja: {
+    skipIntro: 'イントロをスキップ',
+    nextEpisode: '次のエピソード',
+    skipRecap: '前回までのあらすじをスキップ',
+  },
+  es: {
+    skipIntro: 'Saltar introducción',
+    nextEpisode: 'Siguiente episodio',
+    skipRecap: 'Omitir recapitulación',
+  },
+  fr: {
+    skipIntro: "Passer l'intro",
+    nextEpisode: 'Épisode suivant',
+    skipRecap: 'Passer le récapitulatif',
+  },
+  de: {
+    skipIntro: 'Intro überspringen',
+    nextEpisode: 'Nächste Folge',
+    skipRecap: 'Rückblick überspringen',
+  },
+  it: {
+    skipIntro: "Salta l'intro",
+    nextEpisode: 'Prossimo episodio',
+    skipRecap: 'Salta il riassunto',
+  },
+  pt: {
+    skipIntro: 'Pular introdução',
+    nextEpisode: 'Próximo episódio',
+    skipRecap: 'Pular recapitulação',
+  },
+  ru: {
+    skipIntro: 'Пропустить заставку',
+    nextEpisode: 'Следующая серия',
+    skipRecap: 'Пропустить ранее',
+  },
+  zh: { skipIntro: '跳过片头', nextEpisode: '下一集', skipRecap: '跳过回顾' },
+  ko: { skipIntro: '인트로 건너뛰기', nextEpisode: '다음 화', skipRecap: '이전 내용 건너뛰기' },
+  ar: { skipIntro: 'تخطي المقدمة', nextEpisode: 'الحلقة التالية', skipRecap: 'تخطي الملخص' },
 } as const;
 
 type LangCode = keyof typeof LANGUAGE_LABELS;
@@ -62,16 +90,20 @@ const createClickHandler = (getLabel: () => string) => (mutation: MutationType) 
 const content: ContentInterface = {
   clickSkipButton: createClickHandler(() => getLabels().skipIntro),
   clickNextEpisodeButton: createClickHandler(() => getLabels().nextEpisode),
+  clickSkipRecapButton: createClickHandler(() => getLabels().skipRecap),
   observeDOM: () => {
     const observer = new MutationObserver((mutations: MutationRecord[]) => {
       chrome.storage.sync.get(
-        ['skipIntro', 'nextEpisode'],
-        (data: { skipIntro?: boolean; nextEpisode?: boolean }) => {
+        ['skipIntro', 'nextEpisode', 'skipRecap'],
+        (data: { skipIntro?: boolean; nextEpisode?: boolean; skipRecap?: boolean }) => {
           if (data.skipIntro) {
             mutations.forEach(content.clickSkipButton);
           }
           if (data.nextEpisode) {
             mutations.forEach(content.clickNextEpisodeButton);
+          }
+          if (data.skipRecap) {
+            mutations.forEach(content.clickSkipRecapButton);
           }
         },
       );
